@@ -1,0 +1,11 @@
+/target
+**/*.rs.bk
+**/*.[oa]
+**/*.so
+
+src/proto/*.rs
+!src/proto/mod.rs
+
+docker/Dockerfile
+docker/Dockerfile.sgx
+

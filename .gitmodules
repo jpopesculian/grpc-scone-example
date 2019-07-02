@@ -1,0 +1,3 @@
+[submodule "zenroom"]
+	path = zenroom
+	url = git@github.com:RiddleAndCode/rust-zenroom.git
