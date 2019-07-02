@@ -7,10 +7,11 @@ RUN apt-get update && apt-get install -y \
     make cmake zsh vim build-essential musl-tools curl unzip
 
 # PROTOBUF
-RUN curl -OL https://github.com/google/protobuf/releases/download/v3.5.1/protoc-3.5.1-linux-x86_64.zip
-RUN unzip protoc-3.5.1-linux-x86_64.zip -d protoc3
-RUN mv protoc3/bin/* /usr/local/bin/
-RUN mv protoc3/include/* /usr/local/include/
+ENV PROTOBUF_VER=3.8.0
+RUN curl -OL https://github.com/google/protobuf/releases/download/v$PROTOBUF_VER/protoc-$PROTOBUF_VER-linux-x86_64.zip
+RUN unzip protoc-$PROTOBUF_VER-linux-x86_64.zip -d protoc-$PROTOBUF_VER
+RUN mv protoc-$PROTOBUF_VER/bin/* /usr/local/bin/
+RUN mv protoc-$PROTOBUF_VER/include/* /usr/local/include/
 
 # APP
 WORKDIR build
@@ -22,6 +23,6 @@ RUN make release
 
 FROM alpine:latest
 
-COPY --from=0 /build/target/x86_64-unknown-linux-musl/release/zenroom-service .
+COPY --from=0 /build/target/x86_64-unknown-linux-musl/release/grpc-example .
 
-CMD ["./zenroom-service"]
+CMD ["./grpc-example"]

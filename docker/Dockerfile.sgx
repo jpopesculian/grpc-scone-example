@@ -15,13 +15,12 @@ RUN mv protoc-$PROTOBUF_VER/include/* /usr/local/include/
 WORKDIR build
 COPY . .
 
-ENV ZENROOM_MAKE_TARGET=linux-lib
 RUN CARGO=scone-cargo CARGO_BUILD_FLAGS="--verbose" make release
 
 # RUNTIME
 
 FROM sconecuratedimages/crosscompilers:runtime-alpine
 
-COPY --from=0 /build/target/x86_64-scone-linux-musl/release/zenroom-service .
+COPY --from=0 /build/target/x86_64-scone-linux-musl/release/grpc-example .
 
-CMD ["./zenroom-service"]
+CMD ["./grpc-example"]
